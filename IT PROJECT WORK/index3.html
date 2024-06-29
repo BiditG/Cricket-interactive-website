@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>CricketforHimalayas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
+    <script src="index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poetsen+One&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+<div>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.php"> Home </a></li>
+                <li><a href="upload.php"> Upload </a></li>
+                <li><a href="index2.html"> Shop</a></li>
+                <li><a href="index3.html" style="border-bottom:3px solid greenyellow;box-shadow: 0 0 5px 1px  rgba(0, 0, 0, 0.5);""> News</a></li>
+                <li><a href="contact.php"> Contact</a></li>
+
+            </ul>
+        </nav>
+    </header>
+    <style>
+        .searchbar {
+            background-color:  white;
+            width: 80%;
+            height: 400px;
+            position: relative;
+            left: 150px;
+            top: 150px;
+            display: flex;
+            justify-content: center;
+
+
+        }
+
+        .searchbar input {
+            width: 30%;
+            color: black;
+            border-radius: 10px;
+            height: 40px;
+            position: relative;
+            top: 197px;
+            left: 70px;
+            padding: 5px;
+        }
+
+        .searchbar button {
+            
+            height: 45px;
+            border-radius: 10px;
+            position: relative;
+            top: 200px;
+            left: 80px;
+            background-color: gold;
+            padding: 7px;
+
+        }
+
+        .searchbar button:hover {
+            background-color: cadetblue;
+            cursor: pointer;
+        }
+
+        .boxData {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            top: 150px;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+            
+            
+        }
+
+        .box {
+            gap: 20px;
+            width: 25%;
+            padding: 20px;
+            position: relative;
+            left: 100px;
+            top: 50px;
+            background-color: white;
+            box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.3);
+
+        }
+        .box:hover {
+            transform: scale(1.2);
+            z-index: 10;
+        }
+
+        .box img {
+            width: 290px;
+            height: 200px;
+            border-radius: 3px;
+            border: 2px solid black;
+            position: relative;
+            left: 40px;
+            
+        }
+
+        .box h3 {
+            margin: 10px 0;
+            font-family: "Poetsen One", sans-serif;
+        }
+        .box p {font-family: "Raleway", sans-serif;
+
+        }
+        body {
+            background-color: whitesmoke;
+        }
+
+        
+    </style>
+
+    <body>
+        <div class="searchbar">
+            <input type="text" id = "inputText" placeholder="Search Here...">
+            <button id="searchButton">Search</button>
+            <h1 style="position: relative; right: 220px;"> LATEST NEWS</h1>
+        </div>
+        <div class="boxData"></div>
+        <img src="" alt="">
+        <h3></h3>
+        <p></p>
+        <div class="getinfo"></div>
+    </body>
+    <script>
+        //https://www.youtube.com/watch?v=pQQZcA6GjJE&t=637s
+        let key = "ba969f53f2a04b41905aaaff277cd7fe";
+        let boxData = document.querySelector(".boxData");
+        let searchButton = document.getElementById("searchButton");
+        let searchInput = document.getElementById("searchInput");
+
+        const getinfo = async (input) => {
+            let res = await fetch(`https://newsapi.org/v2/everything?q=${input}&apiKey=${key}`);
+            let jsonData = await res.json();
+            console.log(jsonData.articles);
+
+            boxData.innerHTML = "";
+            jsonData.articles.forEach(function (article) {
+                console.log(article);
+
+                let divs = document.createElement("div");
+                divs.classList.add("box");
+                boxData.appendChild(divs);
+                divs.innerHTML = `
+                <img src="${article.urlToImage}" alt="${article.title}">
+                <h3>${article.title}</h3>
+                <p>${article.description}</p>
+            `;
+            });
+        };
+
+        window.addEventListener("load", function () {
+            getinfo("Nepal Cricket");
+        });
+
+        searchButton.addEventListener("click", () => {
+            let input = inputText.value;
+            if (input) {
+                getinfo(input);
+            }
+        });
+    </script>
+
+</html>
