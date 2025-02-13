@@ -1,0 +1,1 @@
+This is one of my first projects that uses HTML,CSS,JS,PHP. In this project I have created a simple website for cricket fans where they can view cricket news, upload cricket related videos, visit the shop and login/logout. I haeve used PHP as a backend language and stored the credentials in phpmyadmin.
